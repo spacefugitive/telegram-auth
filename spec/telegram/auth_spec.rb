@@ -5,35 +5,35 @@ module Telegram
     describe '.configure' do
       it 'accepts config' do
         described_class.configure do |config|
-          config.domain = "foo"
+          config.token = "foo"
         end
         expect(described_class.configuration).to be_a(Configuration)
       end
 
-      it 'accepts domain' do
-        domain = 'foo'
+      it 'accepts token' do
+        token = 'foo'
         described_class.configure do |config|
-          config.domain = domain
+          config.token = token
         end
-        expect(described_class.configuration.domain).to eql(domain)
+        expect(described_class.configuration.token).to eql(token)
       end
     end
 
     describe '.configure!' do
       it 'throws on confiration error' do
         expect{
-          described_class.configure!{ |config| config.domain = nil }
+          described_class.configure!{ |config| config.token = nil }
         }.to raise_error(ConfigurationError)
       end
     end
     
     describe '.configuration' do
-      let(:domain) { 'foo' }
+      let(:token) { 'foo' }
       
       it 'returns configuration' do
-        described_class.configure!{ |config| config.domain = domain }
+        described_class.configure!{ |config| config.token = token }
         expect(described_class.configuration).to be_a(Telegram::Configuration)
-        expect(described_class.configuration.domain).to eq(domain)
+        expect(described_class.configuration.token).to eq(token)
       end
     end
   end

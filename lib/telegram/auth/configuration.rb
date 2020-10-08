@@ -3,11 +3,11 @@ require 'singleton'
 module Telegram
   class Configuration
     include Singleton
-    attr_accessor :domain
+    attr_accessor :token
 
     def valid?
       @errors = []
-      @errors << ConfigurationError.new("Invalid Domain") unless (domain && !domain.empty?)
+      @errors << ConfigurationError.new("Invalid token") unless (token && !token.empty?)
       @errors.none?
     end
 
