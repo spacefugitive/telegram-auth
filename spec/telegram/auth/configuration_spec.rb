@@ -3,7 +3,7 @@ require 'spec_helper'
 module Telegram
   describe Configuration do
     it 'implements singleton' do
-      expect{Configuration.new}.to raise_error
+      expect{Configuration.new}.to raise_error(NoMethodError)
     end
 
     describe '#valid?' do
