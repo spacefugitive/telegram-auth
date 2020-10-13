@@ -1,5 +1,6 @@
 require "telegram/auth/version"
 require "telegram/auth/configuration"
+require "telegram/auth/fields"
 
 module Telegram
   class Error < StandardError; end
