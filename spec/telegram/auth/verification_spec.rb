@@ -9,19 +9,21 @@ module Telegram
     let(:last_name){ 'bar' }
     let(:username){ 'baz' }
     let(:photo_url){ 'http://foo.bar' }
-    let(:fields_hash) { {auth_date: auth_date, id: id, first_name: first_name, last_name: last_name, username: username, photo_url: photo_url}}
+    let(:fields) { Fields.new({auth_date: auth_date, id: id, first_name: first_name, last_name: last_name, username: username, photo_url: photo_url})}
     let(:hash){ "5fecd6d5fd7ab45c17f3e59da1ebbc58bbe257adf8c0228ed401dc97608ceef7" }
 
-    describe '.verify' do
+    let(:subject){ Verification.new(hash, fields) }
+
+    describe '@process' do
       it 'returns true for when valid' do
-        expect(described_class.create(hash, fields_hash)).to eq(true)
+        expect(subject.process).to eq(true)
       end
 
       context 'when fields are incorrect' do
         let(:id) { 'incorrect' }
         
         it 'returns false' do
-          expect(described_class.create(hash, fields_hash)).to eq(false)
+          expect(subject.process).to eq(false)
         end
       end
 
@@ -29,7 +31,7 @@ module Telegram
         let(:hash) { 'incorrect' }
         
         it 'returns false' do
-          expect(described_class.create(hash, fields_hash)).to eq(false)
+          expect(subject.process).to eq(false)
         end
       end
     end

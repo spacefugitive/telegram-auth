@@ -2,11 +2,21 @@ require 'openssl'
 
 module Telegram
   class Verification
-    def self.create(hash, fields)
-      fields_string = Fields.new(fields).to_s
+    SHA = 'sha256'
+    attr_reader :error
+    
+    def initialize(hash, fields)
+      @fields = fields
+      @hash = hash
+      @digest = OpenSSL::Digest::SHA256.new
+      @error = nil
+    end
+
+    def process
       token_sha = OpenSSL::Digest::SHA256.new.digest(Configuration.instance.token)
-      check_hash = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new(OpenSSL::Digest.new('sha256')), token_sha, fields_string)
-      hash.casecmp(check_hash) == 0
+      check_hash = OpenSSL::HMAC.hexdigest(@digest, token_sha, @fields.to_s)
+      error = 'Invalid Auth Data.' unless @hash.casecmp(check_hash) == 0
+      !error
     end
   end
 end
