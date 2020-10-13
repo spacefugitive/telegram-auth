@@ -36,5 +36,15 @@ module Telegram
         expect(described_class.configuration.token).to eq(token)
       end
     end
+
+    describe '.logger' do
+      let(:logger){ Logger.new(STDOUT) }
+
+      it 'allows setting a logger' do
+        expect{
+          Telegram::Auth.logger = logger
+        }.to change{ Telegram::Auth.logger }.to(logger)
+      end
+    end
   end
 end
