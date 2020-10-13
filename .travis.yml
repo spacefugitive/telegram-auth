@@ -7,7 +7,6 @@ jobs:
       cache: bundler
     - rvm: jruby
       before_script: 'gem install jruby-openssl'
-      cache: bundler
 
 script: 'bundle exec rake'
 
