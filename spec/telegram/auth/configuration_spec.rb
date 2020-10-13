@@ -20,6 +20,16 @@ module Telegram
       end
     end
 
+    describe '#auth_expires_in' do
+      let(:instance){ Configuration.instance }
+
+      it 'sets an auth expiration policy' do
+        expect{
+          instance.auth_expires_in = 1000
+        }.to change{instance.auth_expires_in}.from(nil).to(1000)
+      end
+    end
+
     describe '#verify!' do
       let(:instance){ Configuration.instance }
 

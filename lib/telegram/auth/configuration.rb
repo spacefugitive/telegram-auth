@@ -4,6 +4,7 @@ module Telegram
   class Configuration
     include Singleton
     attr_accessor :token
+    attr_accessor :auth_expires_in
 
     def valid?
       @errors = []
