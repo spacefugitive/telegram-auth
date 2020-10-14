@@ -1,8 +1,10 @@
 source "https://rubygems.org"
 gemspec
 
+gem 'coveralls', require: false
+
 platforms :jruby do
-  gem "jruby-openssl"
+  gem 'jruby-openssl', '~> 0.10.5'
 end
 
 platforms :ruby do
