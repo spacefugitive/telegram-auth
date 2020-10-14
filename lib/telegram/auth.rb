@@ -2,7 +2,7 @@ require "telegram/auth/version"
 require "telegram/auth/configuration"
 require "telegram/auth/fields"
 require "telegram/auth/verification"
-require "logger"
+require "mono_logger"
 
 module Telegram
   class Error < StandardError; end
@@ -35,5 +35,5 @@ module Telegram
   end
 end
 
-Telegram::Auth.logger = Logger.new(STDOUT)
-Telegram::Auth.logger.level = Logger::DEBUG
+Telegram::Auth.logger = MonoLogger.new(STDOUT)
+Telegram::Auth.logger.level = MonoLogger::DEBUG
