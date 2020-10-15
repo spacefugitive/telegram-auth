@@ -2,13 +2,13 @@ require 'spec_helper'
 
 module Telegram
   describe Configuration do
+    let(:instance){ Configuration.instance }
+
     it 'implements singleton' do
       expect{Configuration.new}.to raise_error(NoMethodError)
     end
 
-    describe '#valid?' do
-      let(:instance){ Configuration.instance }
-
+    describe '#valid?' do  
       it 'returns true when token is provided' do
         instance.token = "foo"
         expect(instance.valid?).to eq(true)
@@ -20,9 +20,19 @@ module Telegram
       end
     end
 
-    describe '#auth_expires_in' do
-      let(:instance){ Configuration.instance }
+    describe '#validate!' do
+      it 'returns true if valid' do
+        instance.token = "foo"
+        expect(instance.validate!).to eq(true)
+      end
 
+      it 'raises an error if invalid' do
+        instance.token = ""
+        expect{ instance.validate! }.to raise_error(ConfigurationError)
+      end
+    end
+
+    describe '#auth_expires_in' do
       it 'sets an auth expiration policy' do
         expect{
           instance.auth_expires_in = 1000

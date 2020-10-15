@@ -8,8 +8,12 @@ module Telegram
 
     def valid?
       @errors = []
-      @errors << ConfigurationError.new("Invalid token") unless (token && !token.empty?)
+      @errors << ConfigurationError.new("Invalid token") if (!token || token.empty?)
       @errors.none?
+    end
+
+    def validate!
+      valid? or raise @errors.first
     end
 
     def verify!
