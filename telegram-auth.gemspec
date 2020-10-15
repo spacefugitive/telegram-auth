@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Aninda"]
   spec.email         = ["spacefugitive@gmail.com"]
   
-  spec.summary       = %q{Gem to verify the auth hash for a telegram domain}
-  spec.description   = %q{Gem to verify the auth hash for a telegram domain}
+  spec.summary       = %q{Gem to verify the auth hash for a telegram domain login}
+  spec.description   = %q{Gem to verify the auth hash for a telegram domain login}
   spec.license       = "MIT"
   
   spec.require_paths = ["lib"]
