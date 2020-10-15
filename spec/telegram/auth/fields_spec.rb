@@ -3,6 +3,26 @@ require 'spec_helper'
 module Telegram
   describe Fields do
     FIELDS = [:auth_date, :id, :username, :first_name, :last_name, :username, :photo_url]
+
+    describe '#auth_expired?' do
+      let(:auth_date){ 1000 }
+      let(:subject){ Fields.new({auth_date: auth_date}) }
+
+      it 'returns false when configured off' do
+        Configuration.instance.auth_expires_in = nil
+        expect(subject.expired?(auth_date + 1000)).to eq(false)
+      end
+
+      it 'returns true when expired' do
+        Configuration.instance.auth_expires_in = 10
+        expect(subject.expired?(auth_date + Configuration.instance.auth_expires_in + 1)).to eq(true)
+      end
+      
+      it 'returns false when valid' do
+        Configuration.instance.auth_expires_in = 10
+        expect(subject.expired?(auth_date + Configuration.instance.auth_expires_in - 1)).to eq(false)
+      end
+    end
     
     describe '#to_s' do
       FIELDS.each do |field|
