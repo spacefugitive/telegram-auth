@@ -21,8 +21,10 @@ module Telegram
       Configuration.instance
     end
 
-    def create(hash, field_data)
-      Verification.new(hash, Fields.new(field_data)).process
+    def self.create(hash, field_data)
+      Verification.new(hash, Fields.new(field_data)).process do |err|
+        Telegram::Auth.logger.debug("Authentication failed. #{err.message}")
+      end
     end
 
     def self.logger=(logger)

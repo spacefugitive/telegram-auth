@@ -33,6 +33,10 @@ module Telegram
         it 'returns false' do
           expect(subject.process).to eq(false)
         end
+
+        it 'yields error if block given' do
+          expect{ |blk| subject.process(&blk) }.to yield_with_args(Verification::ShaError)
+        end
       end
 
       context 'when configured incorrectly' do
