@@ -8,7 +8,7 @@ module Telegram
 
     def valid?
       @errors = []
-      @errors << ConfigurationError.new("Invalid token") if (!token || token.empty?)
+      @errors << Auth::ConfigurationError.new("Invalid token") if (!token || token.empty?)
       @errors.none?
     end
 

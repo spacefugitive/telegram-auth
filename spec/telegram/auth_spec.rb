@@ -20,10 +20,10 @@ module Telegram
     end
 
     describe '.configure!' do
-      it 'throws on confiration error' do
+      it 'throws on configuration error' do
         expect{
           described_class.configure!{ |config| config.token = nil }
-        }.to raise_error(ConfigurationError)
+        }.to raise_error(Auth::ConfigurationError)
       end
     end
     

@@ -28,15 +28,15 @@ module Telegram
 
       it 'raises an error if invalid' do
         instance.token = ""
-        expect{ instance.validate! }.to raise_error(ConfigurationError)
+        expect{ instance.validate! }.to raise_error(Auth::ConfigurationError)
       end
     end
 
     describe '#auth_expires_in' do
       it 'sets an auth expiration policy' do
         expect{
-          instance.auth_expires_in = 1000
-        }.to change{instance.auth_expires_in}.from(nil).to(1000)
+          instance.auth_expires_in = 999
+        }.to change{instance.auth_expires_in}.to(999)
       end
     end
 
@@ -52,7 +52,7 @@ module Telegram
         instance.token = nil
         expect{
           instance.verify!
-        }.to raise_error(ConfigurationError, "Invalid token")
+        }.to raise_error(Auth::ConfigurationError, "Invalid token")
       end
     end
   end

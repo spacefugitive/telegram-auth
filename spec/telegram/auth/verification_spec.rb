@@ -35,14 +35,28 @@ module Telegram
         end
 
         it 'yields error if block given' do
-          expect{ |blk| subject.process(&blk) }.to yield_with_args(Verification::ShaError)
+          expect{ |blk| subject.process(&blk) }.to yield_with_args(Auth::ShaError)
+        end
+      end
+
+      context 'when auth has expired' do
+        let!(:expires_in){ Configuration.instance.auth_expires_in = 1000}
+        let(:now){ Time.at(auth_date).to_datetime }
+        let(:when_expired) { now + expires_in + 1 }
+        
+        it 'returns false' do
+          Timecop.travel(when_expired) do
+            expect{ |blk|
+              expect(subject.process(&blk)). to eq(false)
+            }.to yield_with_args(Auth::ExpiredError)
+          end
         end
       end
 
       context 'when configured incorrectly' do
         it 'raises ConfigurationError' do
           Configuration.instance.token = nil
-          expect{ subject.process }.to raise_error(ConfigurationError)
+          expect{ subject.process }.to raise_error(Auth::ConfigurationError)
         end
       end
     end

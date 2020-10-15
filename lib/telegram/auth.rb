@@ -5,9 +5,11 @@ require "telegram/auth/verification"
 require "logger"
 
 module Telegram
-  class Error < StandardError; end
-  class ConfigurationError < Error; end
   class Auth
+    class Error < StandardError; end
+    class ConfigurationError < Error; end
+    class ShaError < Error; end;
+    class ExpiredError < Error; end;
     def self.configure(&block)
       yield(Configuration.instance) if block_given?
     end
