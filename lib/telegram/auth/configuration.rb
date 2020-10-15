@@ -20,5 +20,10 @@ module Telegram
       return true if valid?
       raise @errors.shift
     end
+
+    def reset!
+      self.token = nil
+      self.auth_expires_in = nil
+    end
   end
 end

@@ -14,6 +14,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'coveralls'
+require 'timecop'
 Coveralls.wear!
 
 RSpec.configure do |config|
@@ -35,4 +36,7 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = :random
+
+  # required for global state. Individual specs should set up their own data accordingly.
+  config.after(:each){ Telegram::Configuration.instance.reset! }
 end
