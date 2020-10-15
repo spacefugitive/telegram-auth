@@ -14,7 +14,7 @@ module Telegram
 
     let(:subject){ Verification.new(hash, fields) }
 
-    describe '@process' do
+    describe '#process' do
       it 'returns true for when valid' do
         expect(subject.process).to eq(true)
       end
@@ -32,6 +32,13 @@ module Telegram
         
         it 'returns false' do
           expect(subject.process).to eq(false)
+        end
+      end
+
+      context 'when configured incorrectly' do
+        it 'raises ConfigurationError' do
+          Configuration.instance.token = nil
+          expect{ subject.process }.to raise_error(ConfigurationError)
         end
       end
     end
