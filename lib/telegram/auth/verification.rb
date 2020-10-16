@@ -2,13 +2,11 @@ require 'openssl'
 
 module Telegram
   class Verification
-    SHA = 'sha256'
     attr_reader :error
     
     def initialize(hash, fields)
       @fields = fields
       @hash = hash
-      @digest = OpenSSL::Digest::SHA256.new
     end
 
     def process
@@ -19,9 +17,7 @@ module Telegram
 
     private
     def check_sha
-      token_sha = OpenSSL::Digest::SHA256.new.digest(Configuration.instance.token)
-      check_hash = OpenSSL::HMAC.hexdigest(@digest, token_sha, @fields.to_s)
-      @error = Auth::ShaError.new("Invalid hash") unless @hash.casecmp(check_hash) == 0
+      @error = Auth::ShaError.new("Invalid hash") unless @hash.casecmp(@fields.hash) == 0
       !@error
     end
 

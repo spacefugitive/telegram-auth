@@ -2,9 +2,7 @@ require 'spec_helper'
 
 module Telegram
   describe Fields do
-    FIELDS = [:auth_date, :id, :username, :first_name, :last_name, :username, :photo_url]
-
-    describe '#auth_expired?' do
+    describe '#expired?' do
       let(:auth_date){ 1000 }
       let(:subject){ Fields.new({auth_date: auth_date}) }
 
@@ -23,25 +21,22 @@ module Telegram
         expect(subject.expired?(auth_date + Configuration.instance.auth_expires_in - 1)).to eq(false)
       end
     end
-    
-    describe '#to_s' do
-      FIELDS.each do |field|
-        let(:value) { 'foo' } 
-        it "contains #{field}" do
-          fields = Fields.new({field => value})
-          expect(fields.to_s).to include(value)
-        end
-      end
 
-      it 'excludes fields not permitted' do
-        fields = Fields.new({'illegal' => 'foo'})
-        expect(fields.to_s).to be_empty
-      end
+    context "#hash" do
+      let!(:token) { Configuration.instance.token = "token" }
+      let(:auth_date){ 1602577243 }
+      let(:id) { 123 }
+      let(:first_name){ 'foo' }
+      let(:last_name){ 'bar' }
+      let(:username){ 'baz' }
+      let(:photo_url){ 'http://foo.bar' }
+      let(:subject) { Fields.new({auth_date: auth_date, id: id, first_name: first_name, last_name: last_name, username: username, photo_url: photo_url})}
+      let(:hash){ "5fecd6d5fd7ab45c17f3e59da1ebbc58bbe257adf8c0228ed401dc97608ceef7" }  
 
-      it "separates fields with \n" do
-        fields = Fields.new({FIELDS[0] => 'foo', FIELDS[1] => 'bar'})
-        expect(fields.to_s).to eq("#{FIELDS[0]}=foo\n#{FIELDS[1]}=bar")
+      it 'returns the hash' do
+        expect(subject.hash).to eq(hash)
       end
     end
+    
   end
 end
