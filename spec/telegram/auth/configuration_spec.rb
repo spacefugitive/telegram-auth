@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Telegram
+module Telegram::Auth
   describe Configuration do
     let(:instance){ Configuration.instance }
 
@@ -28,7 +28,7 @@ module Telegram
 
       it 'raises an error if invalid' do
         instance.token = ""
-        expect{ instance.validate! }.to raise_error(Auth::ConfigurationError)
+        expect{ instance.validate! }.to raise_error(ConfigurationError)
       end
     end
 
@@ -52,7 +52,7 @@ module Telegram
         instance.token = nil
         expect{
           instance.verify!
-        }.to raise_error(Auth::ConfigurationError, "Invalid token")
+        }.to raise_error(ConfigurationError, "Invalid token")
       end
     end
   end

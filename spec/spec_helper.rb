@@ -38,5 +38,5 @@ RSpec.configure do |config|
   config.order = :random
 
   # required for global state. Individual specs should set up their own data accordingly.
-  config.after(:each){ Telegram::Configuration.instance.reset! }
+  config.after(:each){ Telegram::Auth::Configuration.instance.reset! }
 end

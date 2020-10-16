@@ -1,5 +1,5 @@
 module Telegram
-  class Auth
+  module Auth
     VERSION = "0.0.1"
   end
 end

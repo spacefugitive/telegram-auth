@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Telegram
+module Telegram::Auth
   describe Verification do
     let!(:token) { Configuration.instance.token = "token" }
     let(:hash){ "5fecd6d5fd7ab45c17f3e59da1ebbc58bbe257adf8c0228ed401dc97608ceef7" }
@@ -21,7 +21,7 @@ module Telegram
         end
         
         it 'yields error if block given' do
-          expect{ |blk| subject.process(&blk) }.to yield_with_args(Auth::ShaError)
+          expect{ |blk| subject.process(&blk) }.to yield_with_args(ShaError)
         end
       end
 
@@ -29,14 +29,14 @@ module Telegram
         let(:fields){ double(expired?: true, hash: hash) }
         
         it 'returns false' do
-          expect{|blk| expect(subject.process(&blk)). to eq(false)}.to yield_with_args(Auth::ExpiredError)
+          expect{|blk| expect(subject.process(&blk)). to eq(false)}.to yield_with_args(ExpiredError)
         end
       end
 
       context 'when configured incorrectly' do
         it 'raises ConfigurationError' do
           Configuration.instance.token = nil
-          expect{ subject.process }.to raise_error(Auth::ConfigurationError)
+          expect{ subject.process }.to raise_error(ConfigurationError)
         end
       end
     end

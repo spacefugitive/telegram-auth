@@ -1,6 +1,6 @@
 require 'openssl'
 
-module Telegram
+module Telegram::Auth
   class Verification
     attr_reader :error
     
@@ -17,12 +17,12 @@ module Telegram
 
     private
     def check_sha
-      @error = Auth::ShaError.new("Invalid hash") unless @hash.casecmp(@fields.hash) == 0
+      @error = ShaError.new("Invalid hash") unless @hash.casecmp(@fields.hash) == 0
       !@error
     end
 
     def check_expiry
-      @error = Auth::ExpiredError.new("Expired") if @fields.expired?
+      @error = ExpiredError.new("Expired") if @fields.expired?
       !@error
     end
   end

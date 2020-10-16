@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Telegram
+module Telegram::Auth
   describe Fields do
     describe '#expired?' do
       let(:auth_date){ 1000 }

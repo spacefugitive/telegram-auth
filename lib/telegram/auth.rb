@@ -5,7 +5,7 @@ require "telegram/auth/verification"
 require "logger"
 
 module Telegram
-  class Auth
+  module Auth
     class Error < StandardError; end
     class ConfigurationError < Error; end
     class ShaError < Error; end;
@@ -17,10 +17,6 @@ module Telegram
     def self.configure!(&blk)
       configure(&blk)
       Configuration.instance.verify!
-    end
-
-    def self.configuration
-      Configuration.instance
     end
 
     def self.create(hash:, **field_data)

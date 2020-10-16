@@ -1,6 +1,6 @@
 require "singleton"
 
-module Telegram
+module Telegram::Auth
   class Configuration
     include Singleton
     attr_accessor :token
@@ -8,7 +8,7 @@ module Telegram
 
     def valid?
       @errors = []
-      @errors << Auth::ConfigurationError.new("Invalid token") if (!token || token.empty?)
+      @errors << ConfigurationError.new("Invalid token") if (!token || token.empty?)
       @errors.none?
     end
 

@@ -1,4 +1,4 @@
-module Telegram
+module Telegram::Auth
   class Fields
     def initialize(hash)
       @hash = hash
@@ -13,7 +13,7 @@ module Telegram
       token_sha = OpenSSL::Digest::SHA256.new.digest(Configuration.instance.token)
       OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, token_sha, to_s)
     end
-    
+
     def to_s
       permitted_hash = @hash.slice(:auth_date, :id, :username, :first_name, :last_name, :photo_url)
       permitted_hash.map { |k,v| "#{k}=#{v}" }.sort.join("\n")
