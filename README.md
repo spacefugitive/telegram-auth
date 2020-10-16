@@ -2,8 +2,9 @@
 [![Build Status](https://travis-ci.org/spacefugitive/telegram-auth.svg?branch=main)](https://travis-ci.org/spacefugitive/telegram-auth)
 [![Coverage Status](https://coveralls.io/repos/github/spacefugitive/telegram-auth/badge.svg?branch=main)](https://coveralls.io/github/spacefugitive/telegram-auth?branch=main)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e51b0abad88404f3517e/maintainability)](https://codeclimate.com/github/spacefugitive/telegram-auth/maintainability)
+[![Gem Version](https://badge.fury.io/rb/telegram-auth.svg)](https://badge.fury.io/rb/telegram-auth)
 
-Gem to verify auth for a telegram domain.
+Gem to implement authorization checks for telegram logins outlined [here](https://core.telegram.org/widgets/login#checking-authorization).
 
 # Installation
 
@@ -24,14 +25,23 @@ Interactive console at `bin/console` from source.
    Telegram::Auth.configure!{ |c| ... } 
   ```
 
+# Usage
+
+```
+  Telegram::Auth.create(hash:, username: id: first_name: last_name: auth_date: photo_url:) do |error|
+    Telegram::Auth.logger.debug(error.message)
+  end
+```
+
 # Logging
 
-  Auth failures are logged at DEBUG to STDOUT. To configure your own logger:
-  ```
-  Telegram::Auth.logger = Rails.logger #or your logger
-  Telegram::Auth.logger.level = Logger::WARN
-  ```
+Auth failures are logged at DEBUG to STDOUT. To configure your own logger:
+```
+Telegram::Auth.logger = Rails.logger #or your logger
+Telegram::Auth.logger.level = Logger::WARN
+```
 
-# supported versions
+# Supported versions
+
 - Jruby
 - Ruby
