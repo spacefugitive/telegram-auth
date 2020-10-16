@@ -11,8 +11,6 @@ module Telegram::Auth
 
     def process
       Configuration.instance.validate! && check_sha && check_expiry
-      yield(@error) if block_given? && !!@error
-      !@error
     end
 
     private

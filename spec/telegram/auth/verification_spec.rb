@@ -19,17 +19,13 @@ module Telegram::Auth
         it 'returns false' do
           expect(subject.process).to eq(false)
         end
-        
-        it 'yields error if block given' do
-          expect{ |blk| subject.process(&blk) }.to yield_with_args(ShaError)
-        end
       end
 
       context 'when auth has expired' do
         let(:fields){ double(expired?: true, hash: hash) }
         
         it 'returns false' do
-          expect{|blk| expect(subject.process(&blk)). to eq(false)}.to yield_with_args(ExpiredError)
+          expect(subject.process). to eq(false)
         end
       end
 

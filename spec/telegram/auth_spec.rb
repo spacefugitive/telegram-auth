@@ -43,11 +43,11 @@ module Telegram::Auth
       expect(Telegram::Auth.create(**auth_data)).to eq(false)
     end
 
-    it 'logs auth failures' do
-      expect(Telegram::Auth.logger).to receive(:debug).with("Authentication failed. Invalid hash")
-      Telegram::Auth.create(**auth_data) do |error|
-        Telegram::Auth.logger.debug(error.message)
-      end
+    it 'yields on auth failure' do
+      error = ShaError.new('Nice try!')
+      verification = double(error: error, process: false)
+      allow(Verification).to receive(:new).and_return(verification)
+      expect{|blk| Telegram::Auth.create(**auth_data, &blk) }.to yield_with_args(ShaError)
     end
   end
 
