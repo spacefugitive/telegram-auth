@@ -40,20 +40,23 @@ module Telegram
     describe '.create' do
       let(:token) { 'foo' }
       let!(:configuration){ described_class.configure!{ |config| config.token = token } }
+      let(:auth_data) do
+        { hash: "foo", id: "id", auth_date: 120384308, username: "foo", first_name: "bar", last_name: "baz"}
+      end 
 
       it 'returns true if verified' do  # spec is implementation bound.
         allow_any_instance_of(Verification).to receive(:process){ true }
-        expect(described_class.create("hash", {})).to eq(true)
+        expect(described_class.create(**auth_data)).to eq(true)
       end
 
       it 'returns false when verification fails' do
         allow_any_instance_of(Verification).to receive(:process){ false }
-        expect(described_class.create("hash", {})).to eq(false)
+        expect(described_class.create(**auth_data)).to eq(false)
       end
 
       it 'logs auth failures' do
         expect(Telegram::Auth.logger).to receive(:debug).with("Authentication failed. Invalid hash")
-        described_class.create("blah", {username: "foo"}) do |error|
+        described_class.create(**auth_data) do |error|
           described_class.logger.debug(error.message)
         end
       end
