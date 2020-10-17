@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version       = Telegram::Auth::VERSION
   spec.authors       = ["Aninda"]
   spec.email         = ["spacefugitive@gmail.com"]
-  spec.homepage     = "https://github.com/spacefugitive/telegram-auth"
+  spec.homepage      = "https://github.com/spacefugitive/telegram-auth"
   spec.summary       = %q{Gem to verify the auth hash for a telegram domain login}
   spec.description   = %q{Gem to verify the auth hash for a telegram domain login}
   spec.license       = "MIT"
