@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   case RUBY_PLATFORM
   when /java/
-    spec.add_runtime_dependency("jruby-openssl", ["~> 0.9.4"])
+    spec.add_runtime_dependency("jruby-openssl", ["~> 0.10.5"])
     spec.platform      = Gem::Platform::local
   else
     spec.add_runtime_dependency("openssl", ["~> 2.2.0"])
