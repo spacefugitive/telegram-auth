@@ -1,0 +1,21 @@
+name: ci
+
+on:
+  push:
+    branches: [$default-branch]
+  pull_request: [$default-branch]
+
+jobs:
+  test:
+    if: "contains(github.event.commits[0].message, '[ci skip]') == false"
+    runs_on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+      - name: test
+        run: bundle exec rake spec
