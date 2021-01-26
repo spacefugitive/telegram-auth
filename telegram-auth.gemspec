@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.files         = Dir["lib/**/*"]
   
-  spec.add_development_dependency "bundler", "~> 2.1.4"
+  spec.add_development_dependency "bundler", "~> 2.2.6"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.9"
   spec.add_development_dependency "travis", "~> 1.8.8"
