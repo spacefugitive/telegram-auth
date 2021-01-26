@@ -18,11 +18,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - ubuntu
-        ruby:
-          - 2.6
-          - 2.7
+        os: ubuntu
+        ruby: [2.6, 2.7, jruby]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: Checkout
