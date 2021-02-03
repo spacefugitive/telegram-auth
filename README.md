@@ -1,5 +1,5 @@
 # telegram-auth
-[![Build Status](https://travis-ci.org/spacefugitive/telegram-auth.svg?branch=main)](https://travis-ci.org/spacefugitive/telegram-auth)
+[![build](https://github.com/spacefugitive/telegram-auth/workflows/ci/badge.svg)](https://github.com/spacefugitive/telegram-auth/actions)
 [![Coverage Status](https://coveralls.io/repos/github/spacefugitive/telegram-auth/badge.svg?branch=main)](https://coveralls.io/github/spacefugitive/telegram-auth?branch=main)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e51b0abad88404f3517e/maintainability)](https://codeclimate.com/github/spacefugitive/telegram-auth/maintainability)
 [![Gem Version](https://badge.fury.io/rb/telegram-auth.svg)](https://badge.fury.io/rb/telegram-auth)
@@ -42,6 +42,6 @@ Telegram::Auth.logger.level = Logger::WARN
 ```
 
 # Supported versions
-
 - Jruby
 - Ruby
+- TruffleRuby
