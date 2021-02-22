@@ -1,3 +1,4 @@
+# typed: true
 module Telegram::Auth
   class Fields
     def initialize(hash)

@@ -1,3 +1,4 @@
+# typed: true
 require "singleton"
 
 module Telegram::Auth

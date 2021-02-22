@@ -1,3 +1,4 @@
+# typed: true
 require "telegram/auth/version"
 require "telegram/auth/configuration"
 require "telegram/auth/fields"
